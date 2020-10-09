@@ -13,6 +13,7 @@
 7. Marcelo Andriolli
 8. Chico Lúcio
 9. Rodrigo Araújo
+10. André
 
 ## Retrospectiva
 
