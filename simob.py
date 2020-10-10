@@ -5,10 +5,10 @@ import random
 # pytest.main([__file__, '-v', '-p', 'no:warnings'])
 
 class Propriedade:
-    def __init__(self, preco=300, aluguel=100, proprietario=False):
+    def __init__(self, preco=300, aluguel=100):
         self.preco = preco
         self.aluguel = aluguel
-        self.proprietario = proprietario
+        self.proprietario = None
 
 def impulsivo(jogador, propriedade):
     return jogador.saldo >= propriedade.preco and not propriedade.proprietario

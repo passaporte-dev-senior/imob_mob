@@ -2,9 +2,13 @@ from simob import *
 
 def test_comprar_com_proprietario():
     jogador = Jogador(exigente)
-    propriedade = Propriedade(100, 51, True)
+    proprietario = Jogador(exigente)
+    propriedade = Propriedade(100, 51)
+    propriedade.proprietario = proprietario
+
     jogador.paga(propriedade)
     assert jogador.saldo == 249
+    assert proprietario.saldo == 351
 
 def test_exigente_sem_saldo():
     jogador = Jogador(exigente)
