@@ -1,0 +1,7 @@
+tasks:
+  - init: pip install pytest && pip install rerun
+    command: rerun simob.py
+
+vscode:
+  extensions:
+    - littlefoxteam.vscode-python-test-adapter@0.5.0:MOFjKFx34CxWS0nqmAG75g==
