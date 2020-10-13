@@ -1,0 +1,10 @@
+{
+    "python.pythonPath": "/home/gitpod/.pyenv/versions/3.8.6/bin/python",
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "editor.autoSave": "off"
+}
