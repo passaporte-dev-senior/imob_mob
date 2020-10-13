@@ -7,6 +7,7 @@ def test_comprar_com_proprietario():
     propriedade.proprietario = proprietario
 
     jogador.paga(propriedade)
+
     assert jogador.saldo == 249
     assert proprietario.saldo == 351
 
@@ -14,13 +15,14 @@ def test_exigente_sem_saldo():
     jogador = Jogador(exigente)
     propriedade = Propriedade(400, 51)
     jogador.paga(propriedade)
-    assert jogador.saldo == 249
+    assert jogador.saldo == 300
 
 def test_exigente_com_saldo_mas_aluguel_inferior_a_50():
     jogador = Jogador(exigente)
     propriedade = Propriedade(100, 40)
     jogador.paga(propriedade)
-    assert jogador.saldo == 260
+    assert jogador.saldo == 300
+
 
 def test_exigente_com_saldo():
     jogador = Jogador(exigente)
@@ -34,7 +36,8 @@ def test_aleatorio_sem_saldo_true():
     jogador = Jogador(aleatorio)
     propriedade = Propriedade(400, 51)
     jogador.paga(propriedade)
-    assert jogador.saldo == 249
+    assert jogador.saldo == 300
+    random.seed()
 
 def test_aleatorio_com_saldo_false():
     random.seed(0)
@@ -42,7 +45,8 @@ def test_aleatorio_com_saldo_false():
     jogador = Jogador(aleatorio)
     propriedade = Propriedade(100, 51)
     jogador.paga(propriedade)
-    assert jogador.saldo == 249
+    assert jogador.saldo == 300
+    random.seed()
 
 def test_aleatorio_com_saldo_true():
     random.seed(42)
@@ -51,6 +55,7 @@ def test_aleatorio_com_saldo_true():
     propriedade = Propriedade(100, 51)
     jogador.paga(propriedade)
     assert jogador.saldo == 200
+    random.seed()
 
 def test_cauteloso_com_saldo_restante_igual_a_80():
     jogador = Jogador(cauteloso)
@@ -68,7 +73,7 @@ def test_cauteloso_com_saldo_restante_menor_que_80():
     jogador = Jogador(cauteloso)
     propriedade = Propriedade(230, 51)
     jogador.paga(propriedade)
-    assert jogador.saldo == 249
+    assert jogador.saldo == 300
 
 def test_impulsivo_com_saldo():
     jogador = Jogador(impulsivo)
@@ -86,4 +91,4 @@ def test_impulsivo_sem_saldo():
     jogador = Jogador(impulsivo)
     propriedade = Propriedade(301, 51)
     jogador.paga(propriedade)
-    assert jogador.saldo == 249
+    assert jogador.saldo == 300

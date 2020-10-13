@@ -30,8 +30,9 @@ class Jogador:
     def paga(self, propriedade):
         if self.estrategia(self, propriedade):
             self.saldo -= propriedade.preco
-        else:
+        elif propriedade.proprietario:
             self.saldo -= propriedade.aluguel
+            propriedade.proprietario.saldo += propriedade.aluguel
 
 #     def paga(self, valor):
 #         self.saldo -= valor
