@@ -1,8 +1,4 @@
-# Mantenha o seu cursor aqui quando não estiver pilotando: 
-
 import random
-# import pytest
-# pytest.main([__file__, '-v', '-p', 'no:warnings'])
 
 class Propriedade:
     def __init__(self, preco=300, aluguel=100):
@@ -30,22 +26,7 @@ class Jogador:
     def paga(self, propriedade):
         if self.estrategia(self, propriedade):
             self.saldo -= propriedade.preco
+            propriedade.proprietario = self
         elif propriedade.proprietario:
             self.saldo -= propriedade.aluguel
             propriedade.proprietario.saldo += propriedade.aluguel
-
-#     def paga(self, valor):
-#         self.saldo -= valor
-
-#     def __bool__(self):
-#         return self.saldo >= 0
-
-# def test_saldo_jogador():
-#     jogador = Jogador(estrategia='impulsivo')
-#     jogador.paga(100)
-#     assert jogador
-#     assert jogador.saldo == 200
-
-# def test_jogador_eh_falso_quanto_tem_saldo_negativo():
-#     jogador = Jogador(estrategia='impulsivo', saldo=-100)
-#     assert not jogador
