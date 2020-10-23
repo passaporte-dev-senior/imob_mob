@@ -105,3 +105,14 @@ def test_impulsivo_sem_saldo_nao_compra_propriedade_disponivel():
     jogador.paga(propriedade)
     assert jogador.saldo == 300
     assert not propriedade.proprietario
+
+def test_libera_propriedades():
+    jogador = Jogador(impulsivo)
+    propriedade = Propriedade()
+
+    propriedade.proprietario = jogador
+    jogador.propriedades = [propriedade]
+
+    libera_propriedades(jogador)
+
+    assert not propriedade.proprietario
