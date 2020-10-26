@@ -3,7 +3,7 @@ from simob import Jogador, Propriedade, impulsivo
 from tabuleiro import Tabuleiro, dado
 
 def lista_propriedades():
-    return [Propriedade()] * 20
+    return [Propriedade(preco=0, aluguel=0)] * 20
     
 def test_move_jogador_um_passo():    
     jogador = Jogador(impulsivo)
@@ -33,7 +33,7 @@ def test_se_jogador_volta_ao_inicio():
     assert tabuleiro.posicao(jogador) == 0
     tabuleiro.movimenta(jogador, passos=25)
     assert tabuleiro.posicao(jogador) == 5
-    assert jogador.saldo == 100
+    assert jogador.saldo == 400
     
 def test_move_jogador_um_passo_com_dado():
     jogador = Jogador(impulsivo)
@@ -51,7 +51,7 @@ def test_move_jogador_um_passo_com_propriedade():
     jogador = Jogador(impulsivo)
     propriedade = Propriedade(preco=100)
 
-    tabuleiro = Tabuleiro(propriedades=[None, propriedade], jogadores=[jogador])
+    tabuleiro = Tabuleiro(propriedades=[propriedade], jogadores=[jogador])
 
     assert tabuleiro.posicao(jogador) == 0
     tabuleiro.movimenta(jogador, passos=1)

@@ -29,4 +29,10 @@ class Jogador:
             propriedade.proprietario = self
         elif propriedade.proprietario:
             self.saldo -= propriedade.aluguel
-            propriedade.proprietario.saldo += propriedade.aluguel
+            if self.saldo >= 0:
+                propriedade.proprietario.saldo += propriedade.aluguel
+
+def libera_propriedades(jogador):
+    for p in jogador.propriedades:
+        if p.proprietario == jogador:
+            p.proprietario = None

@@ -7,7 +7,7 @@ def dado():
 
 class Tabuleiro:
     def __init__(self, propriedades, jogadores):
-        self.propriedades = propriedades     
+        self.propriedades = [None] + propriedades     
         self.jogadores = {}
         for jogador in jogadores:
             self.jogadores[jogador] = 0
@@ -22,11 +22,9 @@ class Tabuleiro:
 
         self.jogadores[jogador] = nova_posicao
 
-        if self.propriedades:
-            propriedade = self.propriedades[nova_posicao]
+        propriedade = self.propriedades[nova_posicao]
 
-            jogador.paga(propriedade)
+        jogador.paga(propriedade)
 
-    
     def posicao(self, jogador):
         return self.jogadores[jogador]
