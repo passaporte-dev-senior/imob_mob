@@ -23,6 +23,12 @@ class Jogador:
         self.saldo = saldo
         self.estrategia = estrategia
 
+    def __gt__(self, other):
+        return self.saldo > other.saldo
+
+    def __bool__(self):
+        return self.saldo >= 0
+
     def paga(self, propriedade):
         if self.estrategia(self, propriedade):
             self.saldo -= propriedade.preco
@@ -32,7 +38,27 @@ class Jogador:
             if self.saldo >= 0:
                 propriedade.proprietario.saldo += propriedade.aluguel
 
+class Jogadores(list):
+    def __init__(self, *jogadores):
+        super().__init__(jogadores)
+        self.current = 0
+
+    def vencedor(self):
+        return max(self)
+    
+    def __contains__(self, item):
+        return item in filter(lambda x: x, self)
+
+    def __next__(self):
+        if self.current >= len(self):
+            self.current = 0
+        
+        j = self[self.current]
+        self.current += 1
+        return j
+
 def libera_propriedades(jogador):
     for p in jogador.propriedades:
         if p.proprietario == jogador:
             p.proprietario = None
+    jogador.propriedades = []
