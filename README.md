@@ -181,3 +181,25 @@ Caso o jogo demore muito, como é de costume em jogos dessa natureza, o jogo ter
 - estudar iteração em Python!!
 - amanhã é semana-versário da Clarinha!
 
+#  Sessão #6
+
+## Participantes
+
+1. Claudio Berrondo
+2. Patrick Alves
+
+## Retrospectiva
+
+### 😀
+
+- Primerio MOB do Patrick
+- pair (e MOB) programming para rápido feedback!
+- refatoramos e renomeamos. ficou um pouquinho melhor!
+
+### 😩
+
+- cadê a turma? apareçam!
+
+### 🤫
+
+- 
