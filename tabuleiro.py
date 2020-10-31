@@ -1,5 +1,6 @@
 import random
 
+BONUS = 100
 
 def dado():
     return random.randint(1, 6)
@@ -18,13 +19,13 @@ class Tabuleiro:
 
         if nova_posicao > 20:
             nova_posicao -= 20
-            jogador.saldo += 100 
+            jogador.recebe(BONUS) 
 
         self.jogadores[jogador] = nova_posicao
 
         propriedade = self.propriedades[nova_posicao]
 
-        jogador.paga(propriedade)
+        jogador.compra_ou_aluga(propriedade)
 
     def posicao(self, jogador):
         return self.jogadores[jogador]

@@ -1,5 +1,7 @@
 import random
 
+SALDO_INICIAL = 300
+
 class Propriedade:
     def __init__(self, preco=300, aluguel=100):
         self.preco = preco
@@ -19,9 +21,13 @@ def aleatorio(jogador, propriedade):
     return impulsivo(jogador, propriedade) and random.choice([True, False])
 
 class Jogador:
-    def __init__(self, estrategia, saldo=300):
-        self.saldo = saldo
+    def __init__(self, estrategia, saldo=SALDO_INICIAL):
+        self._saldo = saldo
         self.estrategia = estrategia
+
+    @property
+    def saldo(self):
+        return self._saldo
 
     def __gt__(self, other):
         return self.saldo > other.saldo
@@ -29,14 +35,22 @@ class Jogador:
     def __bool__(self):
         return self.saldo >= 0
 
-    def paga(self, propriedade):
+    def paga(self, valor):
+        self._saldo -= valor
+        return valor
+
+    def recebe(self, valor):
+        self._saldo += valor
+
+    def compra_ou_aluga(self, propriedade):
         if self.estrategia(self, propriedade):
-            self.saldo -= propriedade.preco
+            self.paga(propriedade.preco)
             propriedade.proprietario = self
+
         elif propriedade.proprietario:
-            self.saldo -= propriedade.aluguel
+            self.paga(propriedade.aluguel)
             if self.saldo >= 0:
-                propriedade.proprietario.saldo += propriedade.aluguel
+                propriedade.proprietario.recebe(propriedade.aluguel)
 
 class Jogadores(list):
     def __init__(self, *jogadores):

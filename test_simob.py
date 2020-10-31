@@ -6,7 +6,7 @@ def test_propriedade_com_proprietario_jogador_paga_aluguel():
     propriedade = Propriedade(100, 51)
     propriedade.proprietario = proprietario
 
-    jogador.paga(propriedade)
+    jogador.compra_ou_aluga(propriedade)
 
     assert jogador.saldo == 249
     assert proprietario.saldo == 351
@@ -15,22 +15,28 @@ def test_propriedade_com_proprietario_jogador_paga_aluguel():
 def test_exigente_sem_saldo_nao_compra_propriedade_disponivel():
     jogador = Jogador(exigente)
     propriedade = Propriedade(400, 51)
-    jogador.paga(propriedade)
-    assert jogador.saldo == 300
+
+    jogador.compra_ou_aluga(propriedade)
+
+    assert jogador.saldo == SALDO_INICIAL
     assert not propriedade.proprietario
 
 def test_exigente_com_saldo_mas_aluguel_inferior_a_50_nao_compra_propriedade_disponivel():
     jogador = Jogador(exigente)
     propriedade = Propriedade(100, 40)
-    jogador.paga(propriedade)
-    assert jogador.saldo == 300
+
+    jogador.compra_ou_aluga(propriedade)
+
+    assert jogador.saldo == SALDO_INICIAL
     assert not propriedade.proprietario
 
 
 def test_exigente_com_saldo_compra_propriedade_disponivel():
     jogador = Jogador(exigente)
     propriedade = Propriedade(100, 51)
-    jogador.paga(propriedade)
+
+    jogador.compra_ou_aluga(propriedade)
+
     assert jogador.saldo == 200
     assert propriedade.proprietario == jogador
 
@@ -39,9 +45,12 @@ def test_aleatorio_sorteado_true_sem_saldo_nao_compra_propriedade_disponivel():
 
     jogador = Jogador(aleatorio)
     propriedade = Propriedade(400, 51)
-    jogador.paga(propriedade)
-    assert jogador.saldo == 300
+
+    jogador.compra_ou_aluga(propriedade)
+
+    assert jogador.saldo == SALDO_INICIAL
     assert not propriedade.proprietario
+
     random.seed()
 
 def test_aleatorio_sorteado_false_com_saldo_nao_compra_propriedade_disponivel():
@@ -49,9 +58,12 @@ def test_aleatorio_sorteado_false_com_saldo_nao_compra_propriedade_disponivel():
 
     jogador = Jogador(aleatorio)
     propriedade = Propriedade(100, 51)
-    jogador.paga(propriedade)
-    assert jogador.saldo == 300
+
+    jogador.compra_ou_aluga(propriedade)
+
+    assert jogador.saldo == SALDO_INICIAL
     assert not propriedade.proprietario
+
     random.seed()
 
 def test_aleatorio_sorteado_true_com_saldo_compra_propriedade_disponivel():
@@ -59,51 +71,66 @@ def test_aleatorio_sorteado_true_com_saldo_compra_propriedade_disponivel():
 
     jogador = Jogador(aleatorio)
     propriedade = Propriedade(100, 51)
-    jogador.paga(propriedade)
+
+    jogador.compra_ou_aluga(propriedade)
+
     assert jogador.saldo == 200
-    random.seed()
     assert propriedade.proprietario == jogador
+
+    random.seed()
 
 def test_cauteloso_com_saldo_restante_igual_a_80_compra_propriedade_disponivel():
     jogador = Jogador(cauteloso)
     propriedade = Propriedade(220, 51)
-    jogador.paga(propriedade)
+
+    jogador.compra_ou_aluga(propriedade)
+
     assert jogador.saldo == 80
     assert propriedade.proprietario == jogador
 
 def test_cauteloso_com_saldo_restante_maior_que_80_compra_propriedade_disponivel():
     jogador = Jogador(cauteloso)
     propriedade = Propriedade(210, 51)
-    jogador.paga(propriedade)
+
+    jogador.compra_ou_aluga(propriedade)
+
     assert jogador.saldo == 90
     assert propriedade.proprietario == jogador
 
 def test_cauteloso_com_saldo_restante_menor_que_80_nao_compra_propriedade_disponivel():
     jogador = Jogador(cauteloso)
     propriedade = Propriedade(230, 51)
-    jogador.paga(propriedade)
-    assert jogador.saldo == 300
+
+    jogador.compra_ou_aluga(propriedade)
+
+    assert jogador.saldo == SALDO_INICIAL
     assert not propriedade.proprietario
 
 def test_impulsivo_com_saldo_compra_propriedade_disponivel():
     jogador = Jogador(impulsivo)
     propriedade = Propriedade(150, 51)
-    jogador.paga(propriedade)
+
+    jogador.compra_ou_aluga(propriedade)
+
     assert jogador.saldo == 150
     assert propriedade.proprietario == jogador
 
 def test_impulsivo_com_saldo_igual_preco_compra_propriedade_disponivel():
     jogador = Jogador(impulsivo)
     propriedade = Propriedade(300, 51)
-    jogador.paga(propriedade)
+
+    jogador.compra_ou_aluga(propriedade)
+
     assert jogador.saldo == 0
     assert propriedade.proprietario == jogador
 
 def test_impulsivo_sem_saldo_nao_compra_propriedade_disponivel():
     jogador = Jogador(impulsivo)
     propriedade = Propriedade(301, 51)
-    jogador.paga(propriedade)
-    assert jogador.saldo == 300
+
+    jogador.compra_ou_aluga(propriedade)
+
+    assert jogador.saldo == SALDO_INICIAL
     assert not propriedade.proprietario
 
 def test_libera_propriedades():
@@ -122,7 +149,9 @@ def test_vencedor_lista_de_jogadores():
     jogador01 = Jogador(impulsivo)
     jogador02 = Jogador(impulsivo)
     jogadores = Jogadores(jogador01, jogador02)
-    jogador01.saldo = -1
+
+    jogador01.paga(301)
+
     assert jogadores.vencedor() == jogador02 
     assert jogador02 in jogadores
     assert not jogador01 in jogadores
@@ -133,6 +162,7 @@ def test_vencedor_lista_de_jogadores_maior_saldo():
     jogador01 = Jogador(impulsivo, saldo=1000)
     jogador02 = Jogador(impulsivo, saldo=100)
     jogadores = Jogadores(jogador01, jogador02)
+    
     assert jogadores.vencedor() == jogador01
 
 def test_vencedor_lista_de_jogadores_maior_saldo():
@@ -140,6 +170,7 @@ def test_vencedor_lista_de_jogadores_maior_saldo():
     jogador02 = Jogador(impulsivo, saldo=200)
     jogador03 = Jogador(impulsivo, saldo=200)
     jogadores = Jogadores(jogador01, jogador02, jogador03)
+    
     assert jogadores.vencedor() == jogador02
 
 def test_next_lista_de_jogadores_retorna_ao_inicio():
