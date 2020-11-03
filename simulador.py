@@ -1,26 +1,47 @@
+from itertools import cycle
+
 from simob import *
 from tabuleiro import *
 
-jogadores = Jogadores(
-    Jogador(impulsivo),
-    Jogador(exigente),
-    Jogador(cauteloso),
-    Jogador(aleatorio)
-)#.embaralha()
+class Partida:
 
-jogadores.limite_de_rodadas = 50
+    def __init__(self):
 
-precos_e_alugueis = ((30, 3),) * 10
+        jogadores = Jogadores(
+            Jogador(impulsivo),
+            Jogador(exigente),
+            Jogador(cauteloso),
+            Jogador(aleatorio)
+        ).embaralha()
 
-propriedades = [Propriedade(preco, aluguel) for preco, aluguel in precos_e_alugueis]
-print(propriedades)
+        precos_e_alugueis = ((200, 90),) * 20
 
-tabuleiro = Tabuleiro(propriedades, jogadores.jogando)
+        propriedades = [Propriedade(preco, aluguel) for preco, aluguel in precos_e_alugueis]
 
-for jogador in jogadores:
-    print(jogadores.rodadas, end='')
-    tabuleiro.movimenta(jogador, dado())
-    # jogador.movimenta(tabuleiro, dado())
-    # jogador.joga(tanbuleiro)
-else:
-    print(jogadores.vencedor())
+        tabuleiro = Tabuleiro(propriedades, jogadores)
+
+        os_jogadores = cycle(jogadores)
+
+        global LIMITE_DE_RODADAS
+        while LIMITE_DE_RODADAS:
+            jogador = next(os_jogadores)
+            if jogador:
+                tabuleiro.movimenta(jogador, dado())
+            if jogadores.resta_um_jogador():
+                self.vencedor = jogadores.vencedor()
+                print(jogadores.vencedor())
+                break
+            LIMITE_DE_RODADAS -= 1
+        else:
+            self.vencedor = jogadores.vencedor()
+            print(jogadores.vencedor(), jogadores)
+
+
+partidas = []
+for i in range(1000):
+    partidas.append(Partida())
+
+from collections import Counter
+from pprint import pprint
+
+pprint(Counter([p.vencedor.estrategia.__name__ for p in partidas]))
