@@ -181,7 +181,7 @@ Caso o jogo demore muito, como é de costume em jogos dessa natureza, o jogo ter
 - estudar iteração em Python!!
 - amanhã é semana-versário da Clarinha!
 
-#  Sessão #6
+#  Sessão #5.1
 
 ## Participantes
 
@@ -203,3 +203,30 @@ Caso o jogo demore muito, como é de costume em jogos dessa natureza, o jogo ter
 ### 🤫
 
 - 
+
+#  Sessão #6
+
+## Participantes
+
+1. Claudio Berrondo
+2. Celestino Gomes
+3. Rodrigo Araujo
+4. Leonardo Conceição
+5. Jean
+
+## Retrospectiva
+
+### 😀
+
+- estréia do Leo e do Jean
+- vencemos o iter 
+- StopIteration resolve maximo de rodadas e único vencedor
+- viva Python, viva o protocolo de iteração!
+
+### 😩
+
+- continuamos poucos (tá mais pra pair do que pra MOB)
+
+### 🤫
+
+- dúvidas existencias de modelagem!!

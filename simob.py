@@ -1,6 +1,7 @@
 import random
 
 SALDO_INICIAL = 300
+LIMITE_DE_RODADAS = 1000
 
 class Propriedade:
     def __init__(self, preco=300, aluguel=100):
@@ -52,24 +53,39 @@ class Jogador:
             if self.saldo >= 0:
                 propriedade.proprietario.recebe(propriedade.aluguel)
 
-class Jogadores(list):
+class Jogadores():
     def __init__(self, *jogadores):
-        super().__init__(jogadores)
-        self.current = 0
+        self.jogadores = jogadores
+        self._da_vez = 0
+        self.rodada = 1
+        self.limite_de_rodadas = LIMITE_DE_RODADAS
 
     def vencedor(self):
-        return max(self)
+        return max(self.jogadores)
+    
+    def jogando(self):
+        return list(filter(bool, self.jogadores))
     
     def __contains__(self, item):
-        return item in filter(lambda x: x, self)
+        return item in self.jogando()
+    
+    def __iter__(self):
+        return self
 
     def __next__(self):
-        if self.current >= len(self):
-            self.current = 0
+        if len(self.jogando()) == 1:
+            raise StopIteration
+
+        if self._da_vez >= len(self.jogando()):
+            self._da_vez = 0
+            self.rodada += 1
+
+        if self.rodada > self.limite_de_rodadas:
+            raise StopIteration
         
-        j = self[self.current]
-        self.current += 1
-        return j
+        jogador = self.jogando()[self._da_vez]
+        self._da_vez += 1
+        return jogador
 
 def libera_propriedades(jogador):
     for p in jogador.propriedades:
